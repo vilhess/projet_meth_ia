@@ -1,0 +1,27 @@
+.DS_Store
+README.md
+# **/*.md
+Dockerfile
+.dockerignore
+
+# Code environnement
+.gitignore
+.git
+.vscode
+.idea
+
+# Pre-commit stuff (for Python)
+.flake8
+.pre-commit-config.yaml
+pyproject.toml
+
+# Python
+**/__pycache__
+sandbox.py
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+**/*.ipynb
+
+# Large files
+*.png
