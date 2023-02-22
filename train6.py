@@ -2,7 +2,7 @@ import torch
 import torchvision.datasets as datasets
 from tqdm import tqdm
 from torch import nn 
-from model6 import VariationalAutoEncoder2
+from model6 import VariationalAutoEncoder
 from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
@@ -13,15 +13,20 @@ from torch import optim
 
 #DEVICE = torch.device("mps")
 INPUT_DIM = 28*28
+H1_DIM = 512
+H2_DIM = 256
+H3_DIM = 128
+H4_DIM = 64
+H5_DIM = 32
 Z_DIM = 6
-NUM_EPOCHS = 10
+NUM_EPOCHS = 6
 BATCH_SIZE = 5
 LR_RATE = 1e-4
 
 #dataset loading
 dataset = datasets.MNIST(root = "dataset/", train = True, transform = transforms.ToTensor(), download = True)
 train_loader = DataLoader(dataset = dataset, batch_size=BATCH_SIZE, shuffle=True)
-model = VariationalAutoEncoder2(INPUT_DIM, Z_DIM)
+model = VariationalAutoEncoder(INPUT_DIM, H1_DIM, H2_DIM, H3_DIM, H4_DIM, H5_DIM, Z_DIM)
 optimizer = optim.Adam(model.parameters(), lr = LR_RATE)
 loss_fn = nn.BCELoss(reduction="sum")
 

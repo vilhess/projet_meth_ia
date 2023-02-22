@@ -37,7 +37,6 @@ def inference(digit, num_examples = 1):
     for example in range(num_examples):
         epsilon = torch.randn_like(sigma)
         z = mu + sigma*epsilon
-        print(z)
         out = model.decoder(z)
         out = out.view(-1, 1, 28, 28)
         save_image(out, f"generated_{digit}_ex{example}.png")
