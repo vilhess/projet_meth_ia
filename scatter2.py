@@ -2,7 +2,7 @@ import torch
 import torchvision.datasets as datasets
 from tqdm import tqdm
 from torch import nn 
-from model2 import VariationalAutoEncoder
+from training.model2 import VariationalAutoEncoder
 from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader

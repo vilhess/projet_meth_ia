@@ -2,7 +2,7 @@ import torch
 import torchvision.datasets as datasets
 from tqdm import tqdm
 from torch import nn 
-from model6 import VariationalAutoEncoder
+from model2 import VariationalAutoEncoder
 from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 #DEVICE = torch.device("mps")
 dataset = datasets.MNIST(root = "dataset/", train = True, transform = transforms.ToTensor(), download = True)
-model = torch.load("weights6D")
+model = torch.load("weighs/weights")
 model.eval()
 
 
@@ -39,7 +39,7 @@ def inference(digit, num_examples = 1):
         z = mu + sigma*epsilon
         out = model.decoder(z)
         out = out.view(-1, 1, 28, 28)
-        save_image(out, f"generated_{digit}_ex{example}.png")
+        save_image(out, f"some_images/generated_{digit}_ex{example}.png")
 
 
 def inference_1_img(img):
