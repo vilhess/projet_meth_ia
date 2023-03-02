@@ -53,6 +53,41 @@ class VariationalAutoEncoder(nn.Module):
         z_reparametrized = mu + sigma*epsilon
         x_reconstructed = self.decoder(z_reparametrized)
         return x_reconstructed, mu, sigma
+    
+
+class VariationalAutoEncoder2(nn.Module):
+    def __init__(self, input_dim, h1_dim, z_dim):
+        super().__init__()
+        # encoder
+        self.img_2hid1 = nn.Linear(input_dim, h1_dim)
+        self.hid2_2mu = nn.Linear(h1_dim, z_dim)
+        self.hid2_2sigma   = nn.Linear(h1_dim, z_dim)
+
+        # decoder
+        self.z_2hid = nn.Linear(z_dim, h1_dim)
+        self.hid_2img = nn.Linear(h1_dim, input_dim)
+        
+        # activation function
+        self.relu = nn.ReLU()
+
+    def encode(self, x):
+        # q_phi(z/x)
+        h1 = self.relu(self.img_2hid1(x))
+        mu, sigma = self.hid2_2mu(h1), self.hid2_2sigma(h1)
+        return mu, sigma
+
+
+    def decoder(self, z):
+        # p_theta(x/z)
+        h1 = self.relu(self.z_2hid(z))
+        return torch.sigmoid(self.hid_2img(h1))
+
+    def forward(self, x):
+        mu, sigma = self.encode(x)
+        epsilon = torch.randn_like(sigma)
+        z_reparametrized = mu + sigma*epsilon
+        x_reconstructed = self.decoder(z_reparametrized)
+        return x_reconstructed, mu, sigma
 
 
 if __name__ == "__main__":

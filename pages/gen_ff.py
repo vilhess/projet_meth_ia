@@ -14,8 +14,8 @@ file_up = st.file_uploader("Upload an image")
 if file_up is not None : 
 
     image = Image.open(file_up)
-    st.image(image, caption='Uploaded Base Image.', use_column_width=True)
-
+    image1 = image
+    
     image = ImageOps.grayscale(image)
     image = np.array(image.getdata())
     image = torch.from_numpy(image).view((1,560))
@@ -25,7 +25,15 @@ if file_up is not None :
     mu, sigma = model.encode(image)
     z = mu + sigma*torch.rand_like(sigma)
     out = model.decoder(z).detach()
-    image = out.view((-1,1,28,20))
-    save_image(image, f"some_images/generated.png")
-    image = Image.open("some_images/generated.png")
-    st.image(image, caption = 'generate', use_column_width=True)
+    image2 = out.view((-1,1,28,20))
+    save_image(image2, f"some_images/generated.png")
+    image2 = Image.open("some_images/generated.png")
+
+
+    col1, col2 = st.columns(2)
+    with col1 : 
+        st.subheader("Base Image")
+        st.image(image1, width = 256)
+    with col2:
+        st.subheader("Generated Image")
+        st.image(image2, width = 256)
