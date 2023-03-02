@@ -9,6 +9,8 @@ from coord_to_img_6d import convert_to_img_without_show_6D
 model = torch.load("weights6D")
 model.eval()
 
+st.subheader("Here we consider a 6D latent space. You can play with the coordinates and plot the digits generated")
+
 col1, col2 = st.columns(2)
 with col1 : 
     coord1 = st.slider('coord1', float(-6), float(6), float(0), step = 0.1)

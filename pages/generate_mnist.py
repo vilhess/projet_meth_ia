@@ -8,7 +8,7 @@ from torchvision.utils import save_image
 model = torch.load("weights")
 model.eval()
 
-
+st.subheader("Here you can import images from the files named 'some mnist images'. It will generate new images of digits. We also have a file named 'some images floues' and if you import these ones, it will denoise them.")
 
 file_up = st.file_uploader("Upload an image")
 

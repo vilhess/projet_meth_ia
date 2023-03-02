@@ -8,7 +8,7 @@ from torchvision.utils import save_image
 model = torch.load("weights_ff")
 model.eval()
 
-
+st.subheader("we have a file named 'some ff images'. You can import one of these image and see the generated image associated")
 
 file_up = st.file_uploader("Upload an image")
 if file_up is not None : 

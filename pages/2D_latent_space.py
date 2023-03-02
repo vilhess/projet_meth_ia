@@ -10,7 +10,7 @@ model = torch.load("weights")
 model.eval()
 
 st.subheader("Here you can generate new digits by seeing where they lived in our latent space ")
-
+st.subheader("Below you can see how our digits are represented in our latent space")
 
 image = Image.open("space.png")
 st.image(image, caption = '2D dimension cluster', use_column_width=True)
