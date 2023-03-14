@@ -13,41 +13,35 @@ import matplotlib.pyplot as plt
 dataset = datasets.MNIST(
     root="dataset/", train=True, transform=transforms.ToTensor(), download=True
 )
-model = torch.load("weights")
-model.eval()
+model1 = torch.load("save_weights/weights")
+model1.eval()
 
 
-def convert_to_img(coord):
+def convert_to_img_without_show_mnist(coord):
     x, y = float(coord[0]), float(coord[1])
     coord = (x, y)
     coord = torch.tensor(coord).view(1, 2)
-    img = model.decoder(coord).detach()
-    img = img.view(28, 28, 1)
-    plt.imshow(img, cmap="gray")
-    plt.show()
-
-
-def convert_to_img_without_show(coord):
-    x, y = float(coord[0]), float(coord[1])
-    coord = (x, y)
-    coord = torch.tensor(coord).view(1, 2)
-    img = model.decoder(coord).detach()
+    img = model1.decoder(coord).detach()
     img = img.view(-1, 1, 28, 28)
     return img
 
 
-def convert_to_img_without_show_6D(coord):
-    u, v, w, x, y, z = (
+model2 = torch.load("save_weights/weights_ff")
+model2.eval()
+
+
+def convert_to_img_without_show_frey_face(coord):
+    u, v, w, x = (
         float(coord[0]),
         float(coord[1]),
         float(coord[2]),
         float(coord[3]),
-        float(coord[4]),
-        float(coord[5]),
-        float(coord[6]),
     )
-    coord = (u, v, w, x, y, z)
-    coord = torch.tensor(coord).view(1, 6)
-    img = model.decoder(coord).detach()
-    img = img.view(-1, 1, 28, 28)
+    coord = (u, v, w, x)
+    coord = torch.tensor(coord).view(1, 4)
+    img = model2.decoder(coord).detach()
+    img = img.view(-1, 1, 28, 20)
     return img
+
+
+

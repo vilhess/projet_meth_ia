@@ -4,9 +4,9 @@ from PIL import Image, ImageOps
 import torch
 import matplotlib.pyplot as plt
 from torchvision.utils import save_image
-from coord_to_img_6d import convert_to_img_without_show_6D
+from coord_to_img import convert_to_img_without_show_frey_face
 
-model = torch.load("weights_ff")
+model = torch.load("save_weights/weights_ff")
 model.eval()
 
 
@@ -19,25 +19,25 @@ st.subheader(" ")
 st.subheader("Below you can see some of these images")
 col1, col2, col3 = st.columns(3)
 with col1:
-    img = Image.open("some_ff_images/ex0.png")
+    img = Image.open("images/some_ff_images/ex0.png")
     st.image(img, use_column_width=True)
-    img = Image.open("some_ff_images/ex3.png")
+    img = Image.open("images/some_ff_images/ex3.png")
     st.image(img, use_column_width=True)
-    img = Image.open("some_ff_images/ex6.png")
+    img = Image.open("images/some_ff_images/ex6.png")
     st.image(img, use_column_width=True)
 with col2:
-    img = Image.open("some_ff_images/ex1.png")
+    img = Image.open("images/some_ff_images/ex1.png")
     st.image(img, use_column_width=True)
-    img = Image.open("some_ff_images/ex4.png")
+    img = Image.open("images/some_ff_images/ex4.png")
     st.image(img, use_column_width=True)
-    img = Image.open("some_ff_images/ex7.png")
+    img = Image.open("images/some_ff_images/ex7.png")
     st.image(img, use_column_width=True)
 with col3:
-    img = Image.open("some_ff_images/ex3.png")
+    img = Image.open("images/some_ff_images/ex3.png")
     st.image(img, use_column_width=True)
-    img = Image.open("some_ff_images/ex5.png")
+    img = Image.open("images/some_ff_images/ex5.png")
     st.image(img, use_column_width=True)
-    img = Image.open("some_ff_images/ex9.png")
+    img = Image.open("images/some_ff_images/ex9.png")
     st.image(img, use_column_width=True)
 
 
@@ -52,21 +52,18 @@ with colss:
     coord2 = st.slider("x2", float(-7), float(7), float(0), step=0.1)
     coord3 = st.slider("x3", float(-7), float(7), float(0), step=0.1)
     coord4 = st.slider(
-        "x4 : the most interesting one in our opinion",
-        float(-7),
+        "x4", float(-7),
         float(7),
         float(0),
         step=0.1,
     )
-    coord5 = st.slider("x5", float(-7), float(7), float(0), step=0.1)
-    coord6 = st.slider("x6", float(-7), float(7), float(0), step=0.1)
 
 with colsss:
-    img = convert_to_img_without_show_6D(
-        (coord1, coord2, coord3, coord4, coord5, coord6)
+    img = convert_to_img_without_show_frey_face(
+        (coord1, coord2, coord3, coord4)
     )
-    save_image(img, "some_images/made6d.png")
-    img = Image.open("some_images/made6d.png")
+    save_image(img, "images/some_ff_images/made4d.png")
+    img = Image.open("images/some_ff_images/made4d.png")
     st.header(" ")
     st.header(" ")
     st.header(" ")
