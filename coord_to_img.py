@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 dataset = datasets.MNIST(
     root="dataset/", train=True, transform=transforms.ToTensor(), download=True
 )
-model = torch.load("weights2.2D")
+model = torch.load("weights")
 model.eval()
 
 
