@@ -2,23 +2,22 @@ import torch
 import torchvision.datasets as datasets
 from tqdm import tqdm
 from torch import nn 
-from model6 import VariationalAutoEncoder2
+from model_ff import VariationalAutoEncoder
 from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
 from torch import optim
 import scipy.io
+from torch.nn import functional as F
 
 INPUT_DIM = 28*20
-H1_DIM = 200
-H2_DIM = 256
-H3_DIM = 128
-H4_DIM = 64
-H5_DIM = 32
-Z_DIM = 20
-NUM_EPOCHS = 100
-BATCH_SIZE = 1
-LR_RATE = 1e-4
+H1_DIM = 280
+H2_DIM = 140
+H3_DIM = 70
+Z_DIM = 6
+NUM_EPOCHS = 1000
+BATCH_SIZE =64
+LR_RATE = 1e-3
 
 def get_FreyFace_data_loader(batchSize):
     ff = scipy.io.loadmat('dataset_ff/frey_rawface.mat')
@@ -35,7 +34,7 @@ def get_FreyFace_data_loader(batchSize):
 
 
 train_loader = get_FreyFace_data_loader(BATCH_SIZE)
-model = VariationalAutoEncoder2(INPUT_DIM, H1_DIM,  Z_DIM)
+model = VariationalAutoEncoder(INPUT_DIM, H1_DIM,   H2_DIM, H3_DIM, Z_DIM)
 optimizer = optim.Adam(model.parameters(), lr = LR_RATE)
 loss_fn = nn.BCELoss(reduction="sum")
 

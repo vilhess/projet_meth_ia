@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 
 dataset = datasets.MNIST(root = "dataset/", train = True, transform = transforms.ToTensor(), download = True)
-model = torch.load("weights6D")
+model = torch.load("weights_ff")
 model.eval()
 
 
@@ -23,5 +23,5 @@ def convert_to_img_without_show_6D(coord):
     coord = (u, v, w, x, y, z)
     coord = torch.tensor(coord).view(1,6)
     img = model.decoder(coord).detach()
-    img = img.view(-1, 1, 28,28)
+    img = img.view(-1, 1, 28,20)
     return img

@@ -2,7 +2,6 @@ import torch
 import torchvision.datasets as datasets
 from tqdm import tqdm
 from torch import nn 
-from model2 import VariationalAutoEncoder
 from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
@@ -12,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 dataset = datasets.MNIST(root = "dataset/", train = True, transform = transforms.ToTensor(), download = True)
-model = torch.load("weights")
+model = torch.load("weights2.2D")
 model.eval()
 
 def convert_to_img(coord):
