@@ -1,5 +1,5 @@
 import torch
-from torch import nn 
+from torch import nn
 import torch.nn.functional as F
 
 
@@ -12,14 +12,14 @@ class VariationalAutoEncoder(nn.Module):
         self.hid1_2hid2 = nn.Linear(h1_dim, h2_dim)
         self.hid2_2hid3 = nn.Linear(h2_dim, h3_dim)
         self.hid3_2mu = nn.Linear(h3_dim, z_dim)
-        self.hid3_2sigma   = nn.Linear(h3_dim, z_dim)
+        self.hid3_2sigma = nn.Linear(h3_dim, z_dim)
 
         # decoder
         self.z_2hid3 = nn.Linear(z_dim, h3_dim)
         self.hid3_2hid2 = nn.Linear(h3_dim, h2_dim)
         self.hid2_2hid1 = nn.Linear(h2_dim, h1_dim)
         self.hid1_2img = nn.Linear(h1_dim, input_dim)
-        
+
         # activation function
         self.relu = nn.ReLU()
 
@@ -31,7 +31,6 @@ class VariationalAutoEncoder(nn.Module):
         mu, sigma = self.hid3_2mu(h3), self.hid3_2sigma(h3)
         return mu, sigma
 
-
     def decoder(self, z):
         # p_theta(x/z)
         h3 = self.relu(self.z_2hid3(z))
@@ -42,7 +41,6 @@ class VariationalAutoEncoder(nn.Module):
     def forward(self, x):
         mu, sigma = self.encode(x)
         epsilon = torch.randn_like(sigma)
-        z_reparametrized = mu + sigma*epsilon
+        z_reparametrized = mu + sigma * epsilon
         x_reconstructed = self.decoder(z_reparametrized)
         return x_reconstructed, mu, sigma
-    
